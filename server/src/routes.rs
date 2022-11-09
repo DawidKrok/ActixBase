@@ -2,7 +2,10 @@ use actix_web::web;
 
 /// Function registering all Routes from `routes.rs`
 pub fn config(cfg: &mut web::ServiceConfig) {
-    cfg.service(
+    cfg
+    .service(pages::index)
+    // scoped enpoints
+    .service(
         web::scope("/todo")
             .service(todo::all)
             .service(todo::get)
@@ -15,6 +18,20 @@ pub fn config(cfg: &mut web::ServiceConfig) {
 
 
 //==========| ROUTES |=========
+/// Module containing routes for handling html pages 
+mod pages {
+    use actix_files::NamedFile;
+    use std::path::PathBuf;
+    use actix_web::{get, Error};
+
+    // ===========| GET |===========
+    #[get("/")]
+    async fn index() -> Result<NamedFile, Error> {
+        let path: PathBuf = "./static/html/hello.html".parse().unwrap();
+        Ok(NamedFile::open(path)?)
+    }
+}
+
 /// Module containing routes for handling 'Todo' 
 mod todo {
     use actix_web::{HttpResponse, get, post, Responder, web};

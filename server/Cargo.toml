@@ -12,6 +12,7 @@ mongo = { path = "../mongo" }
 serde = { version = "1.0.104", features = ["derive"] }
 bson = "2.3"
 actix-web = "4"
+actix-files = "0.6"
 dotenv = "0.15"
 config = "0.10"
 listenfd = "1"

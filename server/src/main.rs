@@ -1,4 +1,5 @@
 use actix_web::{HttpServer, App, web};
+use actix_files::Files;
 use listenfd::ListenFd;
 use std::io;
 use dotenv::dotenv;
@@ -29,7 +30,9 @@ async fn main() -> io::Result<()> {
         App::new()
             // add App rescources (in this way every route can have access to DB instance)
             .app_data(db.clone())
-            //=======| REGISTER ROUTES |=======
+            //=====| REGISTER STATIC FILES |=====
+            .service(Files::new("/static", "./static").show_files_listing())
+            //========| REGISTER ROUTES |========
             .configure(routes::config)
     });
     
