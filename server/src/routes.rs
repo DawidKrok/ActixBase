@@ -15,7 +15,7 @@ pub fn config(cfg: &mut web::ServiceConfig) {
 
 
 //==========| ROUTES |=========
-/// Mod containing routes for handling 'Todo' 
+/// Module containing routes for handling 'Todo' 
 mod todo {
     use actix_web::{HttpResponse, get, post, Responder, web};
     use models::Todo;
